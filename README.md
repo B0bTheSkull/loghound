@@ -146,13 +146,39 @@ python loghound.py --log auth --file /var/log/auth.log --no-color | tee report.t
 
 ---
 
+## MITRE ATT&CK Coverage
+
+LogHound's detections map to the following MITRE ATT&CK techniques. This makes it easy to fold output into a SIEM that pivots on technique IDs (Splunk ES, Sentinel, Wazuh, etc.).
+
+### Auth log detections
+
+| Detection | Tactic | Technique |
+|---|---|---|
+| SSH brute force | Credential Access | [T1110.001 — Password Guessing](https://attack.mitre.org/techniques/T1110/001/) |
+| Login after multiple failures | Credential Access | [T1110.004 — Credential Stuffing](https://attack.mitre.org/techniques/T1110/004/) |
+| Privilege escalation via `sudo` | Privilege Escalation | [T1548.003 — Sudo and Sudo Caching](https://attack.mitre.org/techniques/T1548/003/) |
+| Privilege escalation via `su` | Privilege Escalation | [T1548 — Abuse Elevation Control Mechanism](https://attack.mitre.org/techniques/T1548/) |
+| New user account creation | Persistence | [T1136.001 — Local Account](https://attack.mitre.org/techniques/T1136/001/) |
+| Off-hours logins | Defense Evasion | [T1078 — Valid Accounts](https://attack.mitre.org/techniques/T1078/) (anomaly) |
+
+### Web log detections
+
+| Detection | Tactic | Technique |
+|---|---|---|
+| Scanner User-Agents (Nikto, sqlmap, nuclei, dirbuster) | Reconnaissance | [T1595.002 — Vulnerability Scanning](https://attack.mitre.org/techniques/T1595/002/) |
+| Sensitive file probes (`.env`, `.git`, `wp-config.php`) | Discovery | [T1083 — File and Directory Discovery](https://attack.mitre.org/techniques/T1083/) |
+| 404 spike (directory enumeration) | Discovery | [T1595 — Active Scanning](https://attack.mitre.org/techniques/T1595/) |
+| High request volume from single IP | Reconnaissance | [T1595 — Active Scanning](https://attack.mitre.org/techniques/T1595/) |
+
+---
+
 ## Roadmap
 
 - [ ] Windows Event Log (EVTX) support
 - [ ] Syslog forwarding integration
 - [ ] Slack/webhook alerting
 - [ ] Watchmode (`--watch`) for real-time tailing
-- [ ] MITRE ATT&CK technique tagging
+- [x] MITRE ATT&CK technique tagging
 
 ---
 
