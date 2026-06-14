@@ -23,7 +23,7 @@ PATTERNS = {
         r"(\w+\s+\d+\s[\d:]+).*sudo:.*?(\w+).*COMMAND=(.*)"
     ),
     "useradd": re.compile(
-        r"(\w+\s+\d+\s[\d:]+).*useradd.*name=(\S+)"
+        r"(\w+\s+\d+\s[\d:]+).*useradd.*name=([^\s,]+)"
     ),
     "su_session": re.compile(
         r"(\w+\s+\d+\s[\d:]+).*su:.*session opened for user (\S+) by (\S+)"

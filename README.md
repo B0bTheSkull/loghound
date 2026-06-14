@@ -3,7 +3,7 @@
 > **CLI log anomaly detection for auth and web server logs.**
 > Catch brute force attacks, credential stuffing, privilege escalation, and scanner behavior — before they become incidents.
 
-![Python](https://img.shields.io/badge/python-3.8%2B-blue?style=flat-square&logo=python)
+![Python](https://img.shields.io/badge/python-3.10%2B-blue?style=flat-square&logo=python)
 ![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
 ![Platform](https://img.shields.io/badge/platform-Linux-lightgrey?style=flat-square)
 

@@ -43,13 +43,12 @@ def test_accepted_ssh_pattern_matches():
 
 
 def test_useradd_pattern_matches():
-    # NOTE: real useradd output is "name=user, UID=...". The current regex uses \S+
-    # which captures the trailing comma. Asserting actual behavior here so the test
-    # is a true regression baseline; trimming the comma in the parser is a follow-up.
+    # real useradd output is "name=user, UID=...". The regex stops at the comma
+    # so the username is captured cleanly without trailing punctuation.
     line = "Jan 15 04:00:00 host useradd[1234]: new user: name=h4x0r, UID=1001, GID=1001"
     m = PATTERNS["useradd"].search(line)
     assert m is not None
-    assert m.group(2).rstrip(",") == "h4x0r"
+    assert m.group(2) == "h4x0r"
 
 
 def test_su_session_to_root():
@@ -125,9 +124,8 @@ def test_user_creation_detected(tmp_path):
     ]
     log = _write_auth_log(tmp_path, lines)
     findings = AuthLogParser().analyze(str(log))
-    # Username currently retains trailing comma (see test_useradd_pattern_matches note)
     assert any(
-        f["type"] == "user_created" and f["username"].rstrip(",") == "evilbob"
+        f["type"] == "user_created" and f["username"] == "evilbob"
         for f in findings
     )
 
